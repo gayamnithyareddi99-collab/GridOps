@@ -1,0 +1,1797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GridOps Intelligence | AI-Powered Predictive Operations & Infrastructure Reliability Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Sora:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+
+:root{
+  /* GridOps  Light Blue + Deep Blue + White */
+  --blue:#0EA5E9;
+  --blue-light:#38BDF8;
+  --blue-dim:#0284C7;
+  --blue-dark:#0369A1;
+  --blue-glow:rgba(14,165,233,0.08);
+
+  --gold:#0F4C81;
+  --gold-light:#1D6FA4;
+  --gold-dim:#093A67;
+
+  /* Deep Blue Backgrounds for nav/footer */
+  --bg-nav:#0C2340;
+  --bg-footer:#0C2340;
+  --bg-footer-deep:#071529;
+
+  /* White & light backgrounds for content */
+  --bg-white:#FFFFFF;
+  --bg-light:#F0F9FF;
+  --bg-card:#FFFFFF;
+  --bg-section:#F0F9FF;
+
+  /* Borders & surfaces */
+  --light-border:rgba(14,165,233,0.18);
+  --card-border:rgba(14,165,233,0.14);
+  --text-dark:#0C2340;
+  --text-mid:#374151;
+  --text-muted:#6B7280;
+
+  /* Text roles */
+  --white:#FFFFFF;
+  --txt-on-dark:#BAE6FD;
+  --txt-dim-nav:#7DD3FC;
+  --txt-dim:#6B7280;
+
+  --nav-h:72px;
+  --max-w:1200px;
+  --font:'Plus Jakarta Sans',sans-serif;
+  --display:'Sora',sans-serif;
+  --mono:'IBM Plex Mono',monospace;
+  --ease:cubic-bezier(0.4,0,0.2,1);
+  --ease-out:cubic-bezier(0,0,0.2,1);
+}
+
+body{font-family:var(--font);color:var(--text-dark);background:var(--bg-white);overflow-x:hidden;}
+
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--bg-light);}
+::-webkit-scrollbar-thumb{background:var(--blue);border-radius:2px;}
+
+img{display:block;max-width:100%;}
+
+/* ─── NAVBAR ─────────────────────────────────────────── */
+.navbar{
+  position:fixed;top:0;left:0;width:100%;height:var(--nav-h);
+  background:var(--bg-nav);backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(56,189,248,0.15);
+  z-index:1000;display:flex;align-items:center;
+  padding:0 clamp(16px,5vw,60px);
+  justify-content:space-between;
+  transition:border-color 0.3s;
+  box-shadow:0 1px 20px rgba(14,165,233,0.18);
+}
+.nav-logo{
+  font-family:var(--display);font-size:18px;font-weight:800;
+  color:var(--blue-light);letter-spacing:-0.3px;
+  display:flex;align-items:center;gap:12px;
+  cursor:pointer;text-decoration:none;flex-shrink:0;
+}
+.nav-logo-icon{
+  width:40px;height:40px;
+  background:linear-gradient(135deg,var(--blue) 0%,var(--blue-dark) 100%);
+  border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+  box-shadow:0 4px 14px rgba(14,165,233,0.4);
+}
+.nav-logo-icon svg{width:22px;height:22px;fill:#fff;}
+.nav-logo-text{display:flex;flex-direction:column;line-height:1;}
+.nav-logo-text span{font-size:10px;font-family:var(--mono);font-weight:500;color:var(--txt-dim-nav);letter-spacing:2px;text-transform:uppercase;margin-top:3px;}
+
+.nav-links{display:flex;align-items:center;gap:4px;list-style:none;}
+.nav-links li button{
+  background:none;border:none;
+  color:var(--txt-dim-nav);
+  font-size:11px;font-weight:600;
+  padding:8px 16px;border-radius:7px;
+  transition:all 0.22s var(--ease);
+  cursor:pointer;font-family:var(--mono);
+  letter-spacing:0.8px;text-transform:uppercase;
+  position:relative;white-space:nowrap;
+}
+.nav-links li button:hover{color:var(--blue-light);background:rgba(56,189,248,0.1);}
+.nav-links li button.active{color:var(--blue-light);background:rgba(56,189,248,0.12);}
+.nav-links li button.active::after{
+  content:'';position:absolute;bottom:5px;left:50%;
+  transform:translateX(-50%);width:14px;height:2px;
+  background:var(--blue-light);border-radius:2px;
+}
+
+.nav-right{display:flex;align-items:center;gap:10px;}
+.btn-demo-nav{
+  background:linear-gradient(135deg,var(--blue),var(--blue-dark));
+  color:var(--white);border:none;padding:9px 20px;border-radius:8px;
+  font-size:11px;font-weight:700;cursor:pointer;
+  transition:all 0.22s;font-family:var(--mono);
+  letter-spacing:0.8px;text-transform:uppercase;white-space:nowrap;
+  box-shadow:0 2px 10px rgba(14,165,233,0.35);
+}
+.btn-demo-nav:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(14,165,233,0.55);}
+
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px;background:none;border:none;flex-shrink:0;}
+.hamburger span{width:22px;height:2px;background:var(--blue-light);border-radius:2px;transition:0.3s;display:block;}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+.mobile-nav{
+  display:none;position:fixed;top:var(--nav-h);left:0;width:100%;
+  background:var(--bg-nav);backdrop-filter:blur(20px);
+  padding:12px 20px 20px;flex-direction:column;gap:2px;
+  z-index:999;border-bottom:1px solid rgba(56,189,248,0.15);
+  animation:slideDown 0.25s var(--ease-out);
+}
+@keyframes slideDown{from{opacity:0;transform:translateY(-10px);}to{opacity:1;transform:translateY(0);}}
+.mobile-nav.open{display:flex;}
+.mobile-nav button{
+  background:none;border:none;color:var(--txt-dim-nav);
+  font-size:13px;font-weight:600;padding:13px 12px;
+  border-bottom:1px solid rgba(56,189,248,0.07);
+  cursor:pointer;font-family:var(--mono);text-align:left;
+  text-transform:uppercase;letter-spacing:1px;
+  transition:color 0.2s,background 0.2s;border-radius:6px;
+}
+.mobile-nav button:hover{color:var(--blue-light);background:rgba(56,189,248,0.08);}
+.mobile-nav .mob-cta{
+  margin-top:8px;background:linear-gradient(135deg,var(--blue),var(--blue-dark));
+  color:var(--white);border:none;padding:13px;
+  border-radius:8px;font-weight:700;font-size:12px;
+  letter-spacing:1px;text-transform:uppercase;cursor:pointer;
+  font-family:var(--mono);
+}
+
+/* ─── PAGE SYSTEM ─────────────────────────────────────── */
+.page{display:none;min-height:100vh;padding-top:var(--nav-h);}
+.page.active{display:block;animation:pgIn 0.35s var(--ease);}
+@keyframes pgIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+
+/* ─── SECTION COMMONS ─────────────────────────────────── */
+.label-tag{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--mono);font-size:10px;font-weight:600;
+  letter-spacing:3px;text-transform:uppercase;
+  color:var(--blue);margin-bottom:14px;
+}
+.label-tag::before{content:'';width:20px;height:1px;background:var(--blue);}
+
+.label-tag-gold{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--mono);font-size:10px;font-weight:600;
+  letter-spacing:3px;text-transform:uppercase;
+  color:var(--gold-light);margin-bottom:14px;
+}
+.label-tag-gold::before{content:'';width:20px;height:1px;background:var(--gold-light);}
+
+.label-tag-white{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--mono);font-size:10px;font-weight:600;
+  letter-spacing:3px;text-transform:uppercase;
+  color:var(--blue-light);margin-bottom:14px;
+}
+.label-tag-white::before{content:'';width:20px;height:1px;background:var(--blue-light);}
+
+.section-h2{
+  font-family:var(--display);font-size:clamp(28px,3.5vw,52px);
+  font-weight:800;line-height:1.1;letter-spacing:-0.8px;
+  margin-bottom:10px;
+}
+.section-h2.green{color:var(--blue);}
+.section-h2.dark{color:var(--text-dark);}
+.section-h2.white{color:var(--white);}
+
+.section-divider{width:56px;height:3px;margin:16px 0 28px;border-radius:2px;}
+.divider-green{background:linear-gradient(90deg,var(--blue),transparent);}
+.divider-gold{background:linear-gradient(90deg,var(--gold-light),transparent);}
+.divider-center{margin:16px auto 28px;}
+
+.para-dark{color:var(--text-mid);line-height:1.85;font-size:17px;}
+.para-light{color:var(--text-muted);line-height:1.85;font-size:17px;}
+
+.container{max-width:var(--max-w);margin:0 auto;padding:0 clamp(16px,4vw,60px);}
+
+/* ─── BUTTONS ─────────────────────────────────────────── */
+.btn-primary{
+  display:inline-flex;align-items:center;gap:8px;
+  background:linear-gradient(135deg,var(--blue),var(--blue-dark));
+  color:var(--white);padding:13px 28px;border-radius:8px;
+  text-decoration:none;font-weight:700;font-size:12px;
+  letter-spacing:0.8px;text-transform:uppercase;
+  transition:all 0.25s;font-family:var(--mono);border:none;cursor:pointer;
+  box-shadow:0 4px 16px rgba(14,165,233,0.3);
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(14,165,233,0.5);}
+
+.btn-secondary{
+  display:inline-flex;align-items:center;gap:8px;
+  border:1.5px solid rgba(14,165,233,0.45);color:var(--blue);
+  padding:12px 28px;border-radius:8px;text-decoration:none;
+  font-weight:700;font-size:12px;letter-spacing:0.8px;
+  text-transform:uppercase;transition:all 0.25s;
+  font-family:var(--mono);background:none;cursor:pointer;
+}
+.btn-secondary:hover{background:rgba(14,165,233,0.06);border-color:var(--blue);}
+
+.btn-gold{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--gold);color:var(--white);
+  padding:12px 28px;border-radius:8px;
+  font-weight:700;font-size:12px;letter-spacing:0.8px;
+  text-transform:uppercase;transition:all 0.25s;
+  font-family:var(--mono);border:none;cursor:pointer;
+  box-shadow:0 4px 16px rgba(15,76,129,0.3);
+}
+.btn-gold:hover{transform:translateY(-2px);background:var(--gold-light);box-shadow:0 8px 28px rgba(15,76,129,0.45);}
+
+/* ─── STATUS INDICATORS ─────────────────────────────── */
+.risk-badge{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:3px 10px;border-radius:20px;
+  font-size:10px;font-weight:700;font-family:var(--mono);letter-spacing:0.5px;
+}
+.risk-green{background:rgba(14,165,233,0.1);color:var(--blue);border:1px solid rgba(14,165,233,0.3);}
+.risk-gold{background:rgba(15,76,129,0.1);color:var(--gold-light);border:1px solid rgba(15,76,129,0.3);}
+.risk-blue{background:rgba(56,189,248,0.12);color:#0369A1;border:1px solid rgba(56,189,248,0.3);}
+.risk-dot{width:5px;height:5px;border-radius:50%;background:currentColor;flex-shrink:0;}
+
+/* ─── HERO ─────────────────────────────────────────────── */
+.hero-mini-stats{display:flex;gap:14px;margin-top:34px;flex-wrap:wrap;}
+.hero-mini-card{
+  background:rgba(14,165,233,0.07);
+  border:1px solid rgba(14,165,233,0.2);
+  border-radius:12px;padding:14px 18px;min-width:150px;
+}
+.hero-mini-card strong{
+  display:block;color:var(--blue);font-size:22px;font-weight:800;
+  margin-bottom:4px;font-family:var(--display);
+}
+.hero-mini-card span{color:var(--text-muted);font-size:12px;line-height:1.5;}
+
+.score-card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:20px;}
+.dashboard-title{color:var(--text-dark);font-size:20px;font-weight:800;margin-top:8px;line-height:1.3;}
+.live-dot-wrap{display:flex;align-items:center;gap:7px;color:var(--blue);font-size:10px;font-family:var(--mono);letter-spacing:1.5px;}
+.live-dot{width:8px;height:8px;border-radius:50%;background:var(--blue);animation:pulse-dot 1.6s ease-in-out infinite;}
+
+@media(max-width:900px){.hero-mini-stats{gap:12px;}.hero-mini-card{flex:1 1 calc(50% - 12px);min-width:unset;}}
+@media(max-width:600px){.hero-mini-stats{flex-direction:column;}.hero-mini-card{width:100%;}.dashboard-title{font-size:18px;}}
+
+.hero{
+  position:relative;
+  padding:clamp(80px,12vw,120px) 0 clamp(60px,8vw,90px);
+  background:
+    radial-gradient(circle at top right,rgba(14,165,233,0.08),transparent 40%),
+    radial-gradient(circle at bottom left,rgba(56,189,248,0.06),transparent 45%),
+    linear-gradient(160deg,#F0F9FF 0%,#E0F2FE 50%,#F0F9FF 100%);
+  overflow:hidden;min-height:calc(100vh - var(--nav-h));
+  display:flex;align-items:center;
+}
+
+.hero-inner{
+  max-width:var(--max-w);margin:0 auto;
+  padding:0 clamp(16px,4vw,60px);
+  display:grid;grid-template-columns:1.15fr 0.85fr;
+  gap:clamp(30px,5vw,80px);align-items:center;
+  position:relative;z-index:1;width:100%;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:9px;
+  background:rgba(14,165,233,0.1);
+  border:1px solid rgba(14,165,233,0.28);
+  color:var(--blue);font-size:10px;font-weight:700;
+  letter-spacing:2.5px;padding:6px 14px 6px 10px;
+  border-radius:4px;text-transform:uppercase;
+  margin-bottom:20px;font-family:var(--mono);
+}
+.hero-badge-dot{
+  width:7px;height:7px;border-radius:50%;background:var(--blue);
+  animation:pulse-dot 1.6s ease-in-out infinite;flex-shrink:0;
+}
+@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.35;transform:scale(0.55);}}
+
+.hero h1{
+  font-family:var(--display);
+  font-size:clamp(38px,4.5vw,68px);
+  line-height:1.06;font-weight:800;
+  letter-spacing:-1.5px;color:var(--text-dark);
+  margin-bottom:10px;
+}
+.hero h1 .green{color:var(--blue);}
+.hero h1 .gold{color:var(--gold-light);}
+
+.hero-rule{width:64px;height:3px;background:linear-gradient(90deg,var(--blue),transparent);border-radius:2px;margin:18px 0 22px;}
+.hero-body{color:var(--text-mid);font-size:17px;line-height:1.75;max-width:520px;margin-bottom:30px;}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;}
+
+/* SCORE CARD */
+.score-card{
+  background:#FFFFFF;
+  border-radius:20px;
+  border:1px solid rgba(14,165,233,0.15);
+  padding:28px 24px;
+  box-shadow:0 16px 60px rgba(14,165,233,0.1),0 2px 8px rgba(14,165,233,0.06);
+}
+.score-row{display:flex;align-items:center;gap:14px;padding:10px 0;border-bottom:1px solid rgba(14,165,233,0.07);}
+.score-row:last-child{border-bottom:none;}
+.score-icon{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
+.green-bg{background:rgba(14,165,233,0.1);}
+.gold-bg{background:rgba(15,76,129,0.1);}
+.blue-bg{background:rgba(56,189,248,0.12);}
+.score-lbl{font-size:12px;color:var(--text-muted);flex:1;}
+.score-val{font-family:var(--mono);font-size:13px;font-weight:600;color:var(--text-dark);}
+
+/* STATS STRIP */
+.stats-strip{background:var(--bg-nav);padding:clamp(28px,4vw,48px) 0;}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(56,189,248,0.1);}
+.stat-item{background:var(--bg-nav);padding:clamp(18px,3vw,30px) clamp(16px,2.5vw,28px);text-align:center;}
+.stat-num{font-family:var(--display);font-size:clamp(26px,3vw,40px);font-weight:800;color:var(--blue-light);line-height:1;}
+.stat-lbl{font-size:12px;color:var(--txt-dim-nav);margin-top:6px;line-height:1.5;}
+.stat-src{font-family:var(--mono);font-size:9px;color:rgba(125,211,252,0.45);margin-top:4px;letter-spacing:1px;}
+
+/* SECTIONS */
+.section-white{background:var(--bg-white);padding:clamp(60px,8vw,100px) 0;}
+.section-green{background:var(--bg-light);padding:clamp(60px,8vw,100px) 0;}
+
+/* PLATFORM CARDS */
+.platform-sub{max-width:700px;margin-bottom:44px;}
+.platform-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.platform-card{background:var(--bg-card);border:1px solid var(--card-border);border-radius:18px;overflow:hidden;transition:box-shadow 0.3s,transform 0.3s;}
+.platform-card:hover{box-shadow:0 12px 40px rgba(14,165,233,0.13);transform:translateY(-4px);}
+.platform-img-wrap{width:100%;aspect-ratio:16/10;overflow:hidden;background:#e0f2fe;}
+.platform-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform 0.5s;}
+.platform-card:hover .platform-img-wrap img{transform:scale(1.04);}
+.platform-card-img{width:100%;aspect-ratio:16/10;overflow:hidden;background:#e0f2fe;}
+.platform-card-img img{width:100%;height:100%;object-fit:cover;}
+.platform-card .inner{padding:24px;}
+.element-badge{
+  display:inline-block;font-family:var(--mono);font-size:9px;font-weight:700;
+  letter-spacing:2px;text-transform:uppercase;color:var(--blue);
+  background:rgba(14,165,233,0.08);border:1px solid rgba(14,165,233,0.2);
+  padding:3px 10px;border-radius:4px;margin-bottom:12px;
+}
+.platform-card h3{font-family:var(--display);font-size:18px;font-weight:800;color:var(--text-dark);margin-bottom:10px;line-height:1.3;}
+.platform-card p{color:var(--text-muted);font-size:14px;line-height:1.75;}
+.more-text{display:none;color:var(--text-muted);font-size:13px;line-height:1.75;margin-top:12px;padding-top:12px;border-top:1px solid rgba(14,165,233,0.1);}
+.platform-card.open .more-text{display:block;}
+.expand-btn{
+  margin-top:14px;background:none;border:1px solid rgba(14,165,233,0.3);
+  color:var(--blue);padding:7px 16px;border-radius:6px;
+  font-size:11px;font-weight:700;font-family:var(--mono);
+  letter-spacing:0.5px;cursor:pointer;transition:all 0.2s;
+}
+.expand-btn:hover{background:rgba(14,165,233,0.07);}
+
+/* ABOUT */
+.about-hero{background:var(--bg-white);padding:clamp(80px,12vw,120px) 0 clamp(60px,8vw,80px);}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(36px,6vw,80px);align-items:start;}
+.about-para{color:var(--text-mid);font-size:15px;line-height:1.85;margin-bottom:18px;}
+.about-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px;}
+.feature-tag{
+  display:inline-block;padding:5px 13px;border-radius:20px;
+  border:1px solid rgba(14,165,233,0.25);color:var(--blue);
+  font-size:11px;font-weight:600;font-family:var(--mono);
+  background:rgba(14,165,233,0.05);letter-spacing:0.3px;
+}
+.founder-card{
+  background:var(--bg-card);border:1px solid var(--card-border);
+  border-radius:18px;padding:28px;margin-bottom:20px;
+  box-shadow:0 4px 20px rgba(14,165,233,0.07);
+}
+.founder-card h4{font-family:var(--display);font-size:22px;font-weight:800;color:var(--text-dark);margin:8px 0 6px;}
+.founder-title{font-size:12px;font-family:var(--mono);color:var(--blue);margin-bottom:14px;line-height:1.6;}
+.founder-card p{color:var(--text-muted);font-size:14px;line-height:1.8;margin-bottom:14px;}
+.founder-tag{
+  display:inline-block;font-family:var(--mono);font-size:9px;font-weight:700;
+  letter-spacing:2px;text-transform:uppercase;color:var(--blue);
+  background:rgba(14,165,233,0.08);border:1px solid rgba(14,165,233,0.2);
+  padding:3px 10px;border-radius:4px;
+}
+
+/* MARKET */
+.market-kpi{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin:36px 0 48px;}
+.mkt-card{background:var(--bg-card);border:1px solid var(--card-border);border-radius:16px;padding:24px;box-shadow:0 2px 12px rgba(14,165,233,0.06);}
+.mkt-num{font-family:var(--display);font-size:clamp(30px,3.5vw,44px);font-weight:800;color:var(--blue);margin-bottom:8px;}
+.mkt-lbl{color:var(--text-mid);font-size:13px;line-height:1.65;margin-bottom:6px;}
+.mkt-source{font-family:var(--mono);font-size:9px;color:var(--text-muted);letter-spacing:1px;}
+.charts-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px;}
+.chart-card{background:var(--bg-card);border:1px solid var(--card-border);border-radius:16px;padding:24px;box-shadow:0 2px 12px rgba(14,165,233,0.06);}
+.chart-card-full{background:var(--bg-card);border:1px solid var(--card-border);border-radius:16px;padding:24px;margin-bottom:24px;box-shadow:0 2px 12px rgba(14,165,233,0.06);}
+.chart-title{font-family:var(--display);font-size:16px;font-weight:800;color:var(--text-dark);margin-bottom:4px;}
+.chart-sub{font-size:12px;color:var(--text-muted);margin-bottom:20px;font-family:var(--mono);}
+.chart-wrap{height:260px;position:relative;}
+.chart-wrap-lg{height:300px;position:relative;}
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:24px;}
+.kpi-card{background:var(--bg-section);border:1px solid var(--card-border);border-radius:12px;padding:18px;text-align:center;}
+.kpi-num{font-family:var(--display);font-size:clamp(22px,2.5vw,30px);font-weight:800;color:var(--blue);margin-bottom:4px;}
+.kpi-lbl{font-size:11px;color:var(--text-muted);font-family:var(--mono);line-height:1.5;}
+
+/* PRICING */
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px;}
+.pricing-card{
+  background:var(--bg-card);border:1px solid var(--card-border);
+  border-radius:20px;padding:32px 28px;position:relative;
+  box-shadow:0 4px 20px rgba(14,165,233,0.07);
+  transition:box-shadow 0.3s,transform 0.3s;
+}
+.pricing-card:hover{box-shadow:0 12px 40px rgba(14,165,233,0.14);transform:translateY(-4px);}
+.pricing-card.featured{
+  border-color:var(--blue);
+  box-shadow:0 8px 32px rgba(14,165,233,0.18);
+}
+.pricing-badge{
+  position:absolute;top:-12px;left:50%;transform:translateX(-50%);
+  background:linear-gradient(135deg,var(--blue),var(--blue-dark));
+  color:#fff;font-family:var(--mono);font-size:9px;font-weight:700;
+  letter-spacing:2px;padding:4px 14px;border-radius:20px;
+  text-transform:uppercase;white-space:nowrap;
+}
+.pricing-tier{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--blue);margin-bottom:8px;}
+.pricing-name{font-family:var(--display);font-size:22px;font-weight:800;color:var(--text-dark);margin-bottom:6px;}
+.pricing-price{font-family:var(--display);font-size:clamp(36px,4vw,52px);font-weight:800;color:var(--text-dark);line-height:1;margin:12px 0 4px;}
+.pricing-price sup{font-size:18px;vertical-align:top;margin-top:8px;}
+.pricing-price .period{font-size:14px;font-weight:400;color:var(--text-muted);font-family:var(--font);}
+.pricing-sub{font-size:12px;color:var(--text-muted);margin-bottom:22px;font-family:var(--mono);}
+.pricing-divider{height:1px;background:rgba(14,165,233,0.1);margin:20px 0;}
+.pricing-feature{
+  display:flex;align-items:flex-start;gap:10px;
+  font-size:13px;color:var(--text-mid);margin-bottom:10px;line-height:1.5;
+}
+.pricing-feature .check{color:var(--blue);flex-shrink:0;margin-top:2px;font-size:12px;}
+.pricing-card .btn-primary,.pricing-card .btn-secondary{width:100%;justify-content:center;margin-top:22px;}
+
+/* PROCESS */
+.process-phase-img{
+  width:100%;aspect-ratio:16/10;border-radius:16px;
+  border:1px solid rgba(14,165,233,0.15);overflow:hidden;
+  box-shadow:0 8px 32px rgba(14,165,233,0.1);
+}
+.process-phase-img img{width:100%;height:100%;object-fit:cover;}
+
+/* FAQ */
+.faq-item{border:1px solid var(--card-border);border-radius:12px;margin-bottom:10px;overflow:hidden;}
+.faq-q{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:16px 20px;cursor:pointer;gap:12px;
+  background:var(--bg-card);
+  transition:background 0.2s;
+}
+.faq-q:hover{background:var(--bg-section);}
+.faq-q h4{font-size:15px;font-weight:700;color:var(--text-dark);line-height:1.4;}
+.faq-icon{font-size:20px;font-weight:300;color:var(--blue);flex-shrink:0;transition:transform 0.3s;}
+.faq-item.open .faq-icon{transform:rotate(45deg);}
+.faq-body{
+  display:none;padding:0 20px 18px;
+  color:var(--text-muted);font-size:14px;line-height:1.8;
+  background:var(--bg-card);
+}
+.faq-item.open .faq-body{display:block;}
+
+/* CONTACT */
+.contact-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:clamp(30px,5vw,70px);align-items:start;margin-top:40px;}
+.contact-left-para{color:var(--text-mid);font-size:16px;line-height:1.8;margin-bottom:28px;}
+.contact-item{display:flex;align-items:flex-start;gap:14px;margin-bottom:20px;}
+.violet-icon{
+  width:42px;height:42px;border-radius:10px;flex-shrink:0;
+  background:rgba(14,165,233,0.1);border:1px solid rgba(14,165,233,0.2);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--blue);font-size:16px;
+}
+.contact-item-text strong{display:block;font-size:14px;font-weight:700;color:var(--text-dark);margin-bottom:2px;}
+.contact-item-text span{font-size:13px;color:var(--text-muted);}
+.contact-form-card{
+  background:var(--bg-card);border:1px solid var(--card-border);
+  border-radius:20px;padding:36px 32px;
+  box-shadow:0 8px 32px rgba(14,165,233,0.08);
+}
+.contact-form-card h3{font-family:var(--display);font-size:22px;font-weight:800;color:var(--text-dark);margin-bottom:22px;}
+.form-group{margin-bottom:16px;}
+.form-label{display:block;font-size:12px;font-weight:700;font-family:var(--mono);color:var(--text-dark);margin-bottom:6px;letter-spacing:0.5px;text-transform:uppercase;}
+.form-ctrl{
+  width:100%;padding:11px 14px;border-radius:8px;
+  border:1.5px solid rgba(14,165,233,0.25);
+  background:#FAFEFF;color:var(--text-dark);font-family:var(--font);font-size:14px;
+  transition:border-color 0.2s,box-shadow 0.2s;outline:none;
+}
+.form-ctrl:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(14,165,233,0.12);}
+.form-ctrl.ta{min-height:110px;resize:vertical;}
+.form-submit{
+  width:100%;padding:13px;background:linear-gradient(135deg,var(--blue),var(--blue-dark));
+  color:#fff;border:none;border-radius:8px;font-weight:700;
+  font-size:13px;font-family:var(--mono);letter-spacing:0.8px;
+  text-transform:uppercase;cursor:pointer;transition:all 0.25s;
+  box-shadow:0 4px 14px rgba(14,165,233,0.3);
+}
+.form-submit:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(14,165,233,0.45);}
+
+/* FOOTER */
+footer{background:var(--bg-footer);border-top:1px solid rgba(56,189,248,0.12);}
+.footer-inner{max-width:var(--max-w);margin:0 auto;padding:clamp(40px,6vw,72px) clamp(16px,4vw,60px) clamp(24px,4vw,40px);}
+.footer-top-band{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:clamp(20px,4vw,52px);margin-bottom:44px;}
+.footer-brand-logo{font-family:var(--display);font-size:22px;font-weight:800;color:var(--blue-light);margin-bottom:6px;}
+.footer-tagline{font-family:var(--mono);font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--txt-dim-nav);margin-bottom:14px;}
+.footer-brand-desc{color:rgba(186,230,253,0.55);font-size:13px;line-height:1.75;}
+.footer-badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px;}
+.footer-badge{
+  padding:4px 10px;border-radius:4px;
+  border:1px solid rgba(56,189,248,0.2);
+  font-family:var(--mono);font-size:9px;font-weight:600;
+  letter-spacing:1.5px;text-transform:uppercase;color:var(--txt-dim-nav);
+}
+.footer-col-title{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--blue-light);margin-bottom:16px;}
+.footer-col{display:flex;flex-direction:column;gap:8px;}
+.footer-col a{color:rgba(186,230,253,0.6);font-size:13px;cursor:pointer;transition:color 0.2s;}
+.footer-col a:hover{color:var(--blue-light);}
+.footer-bottom-bar{border-top:1px solid rgba(56,189,248,0.1);padding-top:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+.footer-bottom-bar p{color:rgba(186,230,253,0.35);font-size:11px;font-family:var(--mono);}
+.footer-bottom-bar span{color:var(--blue-light);}
+.footer-bottom-links{display:flex;gap:20px;}
+.footer-bottom-links a{color:rgba(186,230,253,0.4);font-size:11px;font-family:var(--mono);cursor:pointer;transition:color 0.2s;}
+.footer-bottom-links a:hover{color:var(--blue-light);}
+
+/* ─── RESPONSIVE ─────────────────────────────────────── */
+@media(max-width:1024px){
+  .hero-inner{grid-template-columns:1fr;gap:40px;}
+  .about-grid{grid-template-columns:1fr;}
+  .platform-grid{grid-template-columns:1fr 1fr;}
+  .footer-top-band{grid-template-columns:1fr 1fr;}
+  .market-kpi{grid-template-columns:1fr 1fr;}
+  .pricing-grid{grid-template-columns:1fr 1fr;}
+  .contact-grid{grid-template-columns:1fr;}
+}
+@media(max-width:768px){
+  .nav-links{display:none;}
+  .btn-demo-nav{display:none;}
+  .hamburger{display:flex;}
+  .stats-grid{grid-template-columns:1fr 1fr;}
+  .platform-grid{grid-template-columns:1fr;}
+  .charts-grid{grid-template-columns:1fr;}
+  .kpi-row{grid-template-columns:1fr 1fr;}
+  .pricing-grid{grid-template-columns:1fr;}
+  .market-kpi{grid-template-columns:1fr;}
+  .footer-top-band{grid-template-columns:1fr;}
+}
+@media(max-width:480px){
+  .stats-grid{grid-template-columns:1fr;}
+  .kpi-row{grid-template-columns:1fr;}
+  .hero-btns{flex-direction:column;}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════ NAVBAR ═══════════ -->
+<nav class="navbar">
+  <a class="nav-logo" onclick="showPage('home')">
+
+    <!-- LOGO ICON REMOVED -->
+
+    <div class="nav-logo-text">
+      GridOps
+      <span>Intelligence · UK</span>
+    </div>
+  </a>
+
+  <ul class="nav-links">
+    <li><button id="nav-home" onclick="showPage('home')" class="active">Home</button></li>
+    <li><button id="nav-about" onclick="showPage('about')">About</button></li>
+    <li><button id="nav-platform" onclick="showPage('platform')">Platform</button></li>
+    <li><button id="nav-process" onclick="showPage('process')">How It Works</button></li>
+    <li><button id="nav-market" onclick="showPage('market')">Market</button></li>
+    <li><button id="nav-pricing" onclick="showPage('pricing')">Pricing</button></li>
+    <li><button id="nav-faq" onclick="showPage('faq')">FAQ</button></li>
+    <li><button id="nav-contact" onclick="showPage('contact')">Contact</button></li>
+  </ul>
+
+  <div class="nav-right">
+    <button class="btn-demo-nav" onclick="showPage('contact')">
+      Request Demo
+    </button>
+  </div>
+
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-nav" id="mobileNav">
+  <button onclick="showPage('home');closeMobile()">Home</button>
+  <button onclick="showPage('about');closeMobile()">About</button>
+  <button onclick="showPage('platform');closeMobile()">Platform</button>
+  <button onclick="showPage('process');closeMobile()">How It Works</button>
+  <button onclick="showPage('market');closeMobile()">Market</button>
+  <button onclick="showPage('pricing');closeMobile()">Pricing</button>
+  <button onclick="showPage('faq');closeMobile()">FAQ</button>
+  <button onclick="showPage('contact');closeMobile()">Contact</button>
+  <button class="mob-cta" onclick="showPage('contact');closeMobile()">Request a Demo →</button>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     PAGE: HOME
+═══════════════════════════════════════════════ -->
+<div class="page active" id="page-home">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-badge">
+          <div class="hero-badge-dot"></div>
+          UK's First SME Infrastructure AI Platform · TRL-7 Prototype Ready
+        </div>
+        <h1>Predictive Intelligence<br>for the <span class="green">Grid of Today.</span><br>Reliability for <span class="gold">Tomorrow.</span></h1>
+        <div class="hero-rule"></div>
+        <p class="hero-body">GridOps Intelligence transforms fragmented industrial telemetry into unified, actionable reliability scores  detecting failure precursors up to 14 days in advance with sub-500ms Edge-AI processing. Purpose-built for UK SME utility providers, renewable energy operators, and local councils.</p>
+        <div class="hero-btns">
+          <button class="btn-primary" onclick="showPage('contact')">Request a Pilot →</button>
+          <button class="btn-secondary" onclick="showPage('platform')">Explore Platform</button>
+        </div>
+
+        
+        
+      </div>
+
+      <!-- DASHBOARD CARD -->
+      <div class="score-card">
+        <div class="score-card-top">
+          <div>
+            <div class="live-dot-wrap">
+              <div class="live-dot"></div>
+              LIVE MONITORING
+            </div>
+            <div class="dashboard-title">GridOps Asset<br>Criticality Dashboard</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-family:var(--mono);font-size:9px;color:var(--text-muted);letter-spacing:1px;">GRID HEALTH</div>
+            <div style="font-family:var(--display);font-size:32px;font-weight:800;color:var(--blue);line-height:1;">98%</div>
+            <div style="font-size:10px;color:var(--text-muted);font-family:var(--mono);">OPTIMAL</div>
+          </div>
+        </div>
+        <div class="score-row">
+          <div class="score-icon green-bg">⚡</div>
+          <div class="score-lbl">Assets Monitored (Live)</div>
+          <div class="score-val">5,000+</div>
+        </div>
+        <div class="score-row">
+          <div class="score-icon gold-bg">🔍</div>
+          <div class="score-lbl">Failures Predicted (This Month)</div>
+          <div class="score-val">147</div>
+        </div>
+        <div class="score-row">
+          <div class="score-icon green-bg">🛡️</div>
+          <div class="score-lbl">Outage Risk Level</div>
+          <div class="score-val" style="color:var(--blue);">LOW</div>
+        </div>
+        <div class="score-row">
+          <div class="score-icon gold-bg">📡</div>
+          <div class="score-lbl">Telemetry Events / Hour</div>
+          <div class="score-val">25,000</div>
+        </div>
+        <div class="score-row">
+          <div class="score-icon blue-bg">🏭</div>
+          <div class="score-lbl">Energy Flow (Total Output)</div>
+          <div class="score-val">12.4 GW</div>
+        </div>
+        <div class="score-row">
+          <div class="score-icon green-bg">✅</div>
+          <div class="score-lbl">NIS 2018 Compliance</div>
+          <div class="score-val" style="color:var(--blue);">99.9% UP</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS STRIP -->
+  <section class="stats-strip">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-num">£2.8B</div>
+          <div class="stat-lbl">UK Industrial AI & Predictive Maintenance Market by 2028</div>
+          <div class="stat-src">Market Research 2024</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">30,000+</div>
+          <div class="stat-lbl">UK localized infrastructure sites lacking predictive oversight</div>
+          <div class="stat-src">GridOps Analysis 2025</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">£2M/hr</div>
+          <div class="stat-lbl">Maximum cost of unplanned downtime in industrial sectors</div>
+          <div class="stat-src">Industry Reports 2024</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">NIS 2018</div>
+          <div class="stat-lbl">UK regulatory mandate driving SME infrastructure compliance</div>
+          <div class="stat-src">UK Government 2018</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PLATFORM PREVIEW (HOME) -->
+  <section class="section-white">
+    <div class="container">
+      <div class="label-tag">Our Platform</div>
+      <h2 class="section-h2 dark">Three Engines. One Intelligent <span style="color:var(--blue)">Infrastructure AI Platform.</span></h2>
+      <div class="section-divider divider-green"></div>
+      <p class="para-dark platform-sub">GridOps Intelligence combines real-time Edge-AI processing, multiaxial vectorization, and federated learning into a unified platform that transforms fragmented industrial telemetry from a reactive guessing game into a proactive, compliance-ready reliability standard.</p>
+      <div class="platform-grid">
+        <div class="platform-card">
+          <div class="platform-img-wrap">
+            <img src="grid1.jpg" alt="Predictive Drift Detection">
+          </div>
+          <div class="inner">
+            <div class="element-badge">Engine 01</div>
+            <h3>Predictive Drift Detection Matrix</h3>
+            <p>Identifies micro-variances in thermal, vibration, and electrical data that precede major failures by up to 14 days  well before traditional alarm systems trigger.</p>
+            <div class="more-text">GridOps uses a proprietary algorithmic matrix that distinguishes between operational "noise" and genuine failure precursors across substations, wind turbines, solar inverters, and water pumping stations. Each asset learns its own operational baseline, preventing nuisance alarms.</div>
+            <button class="expand-btn" onclick="toggleCard(this)">Learn More</button>
+          </div>
+        </div>
+        <div class="platform-card">
+          <div class="platform-img-wrap">
+            <img src="grid2.jpg" alt="Federated Failure Repository">
+          </div>
+          <div class="inner">
+            <div class="element-badge">Engine 02</div>
+            <h3>Federated Failure Repository</h3>
+            <p>Overcomes the SME "small data" barrier by enabling industry-wide failure signatures through a privacy-preserving federated learning framework  zero raw data sharing.</p>
+            <div class="more-text">Every GridOps deployment strengthens the collective intelligence repository with anonymized failure precursors. SME operators benefit from national-scale predictive accuracy while their commercially sensitive operational data remains fully encrypted and sovereign.</div>
+            <button class="expand-btn" onclick="toggleCard(this)">Learn More</button>
+          </div>
+        </div>
+        <div class="platform-card">
+          <div class="platform-img-wrap">
+            <img src="grid3.jpg" alt="Zero-Overhaul SCADA Bridge">
+          </div>
+          <div class="inner">
+            <div class="element-badge">Engine 03</div>
+            <h3>Zero-Overhaul SCADA Bridge</h3>
+            <p>Structures data directly from legacy Modbus and DNP3 protocols without requiring expensive hardware replacements  the only platform designed for the UK's aging assets.</p>
+            <div class="more-text">UK SMEs can unlock Tier-1 predictive intelligence from their existing SCADA infrastructure within weeks. No rip-and-replace. No proprietary sensors. No middleware overhaul. The IIoT Bridge extracts and structures legacy industrial data, feeding it directly into the AI reliability engine.</div>
+            <button class="expand-btn" onclick="toggleCard(this)">Learn More</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- end page home -->
+
+
+<!-- ═══════════════════════════════════════════
+     PAGE: ABOUT
+═══════════════════════════════════════════════ -->
+<div class="page" id="page-about">
+  <section class="about-hero">
+    <div class="container">
+      <div class="about-grid">
+        <div>
+          <div class="label-tag">Our Mission</div>
+          <h2 class="section-h2 green">Transforming Reactive Infrastructure Management into AI-Powered Predictive Reliability</h2>
+          <div class="section-divider divider-green"></div>
+          <p class="about-para">GridOps Intelligence was founded on a clear premise: the thousands of UK SMEs managing localized substations, renewable energy sites, and industrial assets are trapped in a cycle of reactive maintenance. This reliance on "fix-it-when-it-breaks" strategies leads to unplanned outages, excessive operational costs, and systemic risks to the UK's localized energy resilience.</p>
+          <p class="about-para">With unplanned downtime in industrial sectors costing between £35,000 and £2 million per hour, GridOps delivers the UK's first AI-powered predictive operations platform specifically designed for SME infrastructure providers  combining multiaxial vectorization, behavioral drift detection, and privacy-preserving federated learning.</p>
+          <p class="about-para">Built by infrastructure operations professionals with deep experience in mission-critical energy environments, GridOps Intelligence democratizes enterprise-grade reliability  making it accessible, affordable, and compliant for every UK SME operator.</p>
+          <div class="about-tags">
+            <div class="feature-tag">Multiaxial Asset Criticality Vectorization</div>
+            <div class="feature-tag">Behavioral Drift Detection Matrix</div>
+            <div class="feature-tag">Federated Failure Repository</div>
+            <div class="feature-tag">Zero-Overhaul SCADA Bridge</div>
+            <div class="feature-tag">Offline-First Edge-AI Inference</div>
+            <div class="feature-tag">Automated NIS 2018 Compliance</div>
+            <div class="feature-tag">UK Net Zero 2050 Aligned</div>
+            <div class="feature-tag">UK GDPR · ISO 27001 Ready</div>
+          </div>
+        </div>
+        <div>
+          <div class="founder-card">
+            <div class="founder-tag">Founder & CEO</div>
+            <h4>Muhammad Shujaat Shabbir</h4>
+            <div class="founder-title">MSc Digital Marketing · University of Chester · BSc (Hons) Information Technology · Microsoft Azure Administrator · Network Security Specialist · Former HUBC (Pakistan's Largest IPP)</div>
+            <p>Muhammad brings over 6 years of experience in mission-critical IT infrastructure, enterprise operations, and energy sector stability. His tenure at The Hub Power Company (HUBC), Pakistan's largest Independent Power Producer, provides GridOps with an authentic foundation in operational reliability and large-scale infrastructure management.</p>
+            <p>His expertise bridges high-performance systems engineering and strategic product growth  ensuring GridOps Intelligence is built on a foundation of real-world operational reality, not just theoretical data science. He personally reviews and signs off on all critical security and compliance documentation, ensuring technical accountability remains a core pillar of operations.</p>
+            <button class="btn-primary" onclick="showPage('contact')">Contact Muhammad →</button>
+          </div>
+          <div class="founder-card">
+            <div class="founder-tag">Growing the Team · Phase 2</div>
+            <h4>Strategic UK Hires</h4>
+            <div class="founder-title">Evidence-Based Recruitment Plan</div>
+            <p>GridOps Intelligence is building its core team through a phased, revenue-linked strategy: an OT Security Engineer to refine the zero-trust monitoring framework; an Infrastructure Data Analyst to oversee the federated failure repository; and Implementation Specialists to lead field deployments and SME client onboarding.</p>
+            <p>All hires are UK-based, aligned with the UK's National AI Strategy and NIS 2018 mandates. By Year 5, the platform targets 38 high-skilled UK jobs across industrial AI, OT cybersecurity, and global commercial functions.</p>
+            <button class="btn-primary" onclick="showPage('market')">View Market Opportunity →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div><!-- end page about -->
+
+
+<!-- ═══════════════════════════════════════════
+     PAGE: PLATFORM
+═══════════════════════════════════════════════ -->
+<div class="page" id="page-platform">
+  <section class="section-green" style="padding-top:clamp(80px,12vw,120px);">
+    <div class="container">
+      <div class="label-tag">The Platform</div>
+      <h2 class="section-h2 dark">Every Layer of GridOps Intelligence's Asset Reliability Engine</h2>
+      <div class="section-divider divider-green"></div>
+      <p class="para-dark platform-sub">GridOps Intelligence is a cloud-native SaaS platform built on a modular architecture  real-time Edge-AI dashboards, legacy SCADA bridge integration, proprietary vectorization logic, and UK GDPR-compliant infrastructure  designed to serve UK infrastructure SMEs without requiring internal data science teams.</p>
+
+      <div class="platform-grid">
+        <div class="platform-card">
+          <div class="platform-card-img"><img src="grid4.jpg" alt="Multiaxial Asset Criticality Vectorization"></div>
+          <div class="inner">
+            <div class="element-badge">Module 01</div>
+            <h3>Multiaxial Asset Criticality Vectorization</h3>
+            <p>Deep learning models that analyze real-time signals from meters, sensors, and SCADA logs  evaluating each asset based on systemic impact, not just simple threshold breaches.</p>
+            <div class="more-text">Calculates a "Dynamic Criticality Score" considering load variations, environmental stress, and grid position  updating in real-time so operators prioritize high-risk components before cascading failures occur. Unlike generic IoT dashboards, this is asset-context-aware intelligence.</div>
+            <button class="expand-btn" onclick="toggleCard(this)">Learn More</button>
+          </div>
+        </div>
+        <div class="platform-card">
+          <div class="platform-card-img"><img src="grid5.jpg" alt="Behavioral Drift Detection Matrix"></div>
+          <div class="inner">
+            <div class="element-badge">Module 02</div>
+            <h3>Asset Behavioural Drift Detection Matrix</h3>
+            <p>Identifies early-stage degradation through micro-variance accumulation analysis  distinguishing between operational "noise" and genuine failure precursors with 94% accuracy.</p>
+            <div class="more-text">Trained on UK-specific infrastructure asset profiles. Provides algorithmic identification of thermal, vibration, and electrical drifts that correlate with emerging failure signatures  delivering a 14-day early-warning window unavailable to static alarm systems.</div>
+            <button class="expand-btn" onclick="toggleCard(this)">Learn More</button>
+          </div>
+        </div>
+        <div class="platform-card">
+          <div class="platform-card-img"><img src="grid6.jpg" alt="Micro-Failure Event Correlation Synthesizer"></div>
+          <div class="inner">
+            <div class="element-badge">Module 03</div>
+            <h3>Micro-Failure Event Correlation Synthesizer</h3>
+            <p>Aggregates low-severity anomalies into composite failure signatures, providing a 14-day early-warning window for planned interventions across all asset classes.</p>
+            <div class="more-text">Correlates disparate telemetry signals (thermal, vibration, and electrical) into a single unified failure prediction event. Traditional monitoring misses the "quiet inefficiencies"  GridOps makes them visible, auditable, and actionable before they escalate.</div>
+            <button class="expand-btn" onclick="toggleCard(this)">Learn More</button>
+          </div>
+        </div>
+        <div class="platform-card">
+          <div class="platform-card-img"><img src="grid7.jpg" alt="Edge-First Offline Monitoring"></div>
+          <div class="inner">
+            <div class="element-badge">Module 04</div>
+            <h3>Edge-First Offline Monitoring Layer</h3>
+            <p>Processes critical telemetry locally on NVIDIA Jetson modules  ensuring 24/7 oversight for remote wind farms, rural substations, and low-connectivity industrial sites.</p>
+            <div class="more-text">Sustains 95% of predictive functionality during complete network dropouts. Once reconnected, the cloud-integrated engine synchronizes data to update global reliability models. Localized processing also minimizes the data attack surface, enhancing cyber-physical security.</div>
+            <button class="expand-btn" onclick="toggleCard(this)">Learn More</button>
+          </div>
+        </div>
+        <div class="platform-card">
+          <div class="platform-card-img"><img src="grid8.jpg" alt="Privacy-Preserving Federated Learning"></div>
+          <div class="inner">
+            <div class="element-badge">Module 05</div>
+            <h3>Privacy-Preserving Federated Learning</h3>
+            <p>Enables SMEs to benefit from industry-wide failure signatures through a federated repository  without ever sharing raw, commercially sensitive operational data.</p>
+            <div class="more-text">Creates a "Collective Resilience Moat" where every new asset deployment strengthens predictive accuracy for all users in the network. Fully aligned with UK GDPR and OT security standards. The only SME-focused tool solving the "small data" problem through encoded, privacy-first learning cycles.</div>
+            <button class="expand-btn" onclick="toggleCard(this)">Learn More</button>
+          </div>
+        </div>
+        <div class="platform-card">
+          <div class="platform-card-img"><img src="grid9.jpg" alt="Automated NIS 2018 Compliance Reporting"></div>
+          <div class="inner">
+            <div class="element-badge">Module 06</div>
+            <h3>Automated NIS 2018 Compliance & Reporting</h3>
+            <p>Automatically generates the audit trails and resilience reports required by Ofgem and UK regulators  transforming compliance from an administrative burden into an operational advantage.</p>
+            <div class="more-text">Maintains an immutable audit trail of maintenance actions and efficiency gains. Maps asset performance against UK energy standards and Net Zero compliance requirements in real-time  making SMEs "audit-ready" without dedicated compliance teams or additional administrative overhead.</div>
+            <button class="expand-btn" onclick="toggleCard(this)">Learn More</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div><!-- end page platform -->
+
+
+<!-- ═══════════════════════════════════════════
+     PAGE: MARKET
+═══════════════════════════════════════════════ -->
+<div class="page" id="page-market">
+  <section class="section-white" style="padding-top:clamp(80px,12vw,120px);">
+    <div class="container">
+      <div class="label-tag">Market Analysis</div>
+      <h2 class="section-h2 dark">A £214M UK Infrastructure AI Market. 30,000+ Sites. A Clear Reliability Gap.</h2>
+      <div class="section-divider divider-green"></div>
+      <p class="para-dark" style="max-width:700px;margin-bottom:40px;">The UK presents a structurally underserved market for intelligent infrastructure reliability management. With over 30,000 UK localized energy and industrial sites managed by SMEs that lack enterprise-grade predictive oversight, the demand for GridOps Intelligence's platform is both urgent and commercially validated.</p>
+
+      <div class="market-kpi">
+        <div class="mkt-card">
+          <div class="mkt-num">£2.8B</div>
+          <div class="mkt-lbl">UK industrial AI and predictive maintenance market projected by 2028 at 7.2% CAGR</div>
+          <div class="mkt-source">UK Industry Data 2024</div>
+        </div>
+        <div class="mkt-card">
+          <div class="mkt-num">30K+</div>
+          <div class="mkt-lbl">Active UK localized infrastructure sites in target sectors without predictive monitoring</div>
+          <div class="mkt-source">GridOps Research 2025</div>
+        </div>
+        <div class="mkt-card">
+          <div class="mkt-num">£214M</div>
+          <div class="mkt-lbl">Total Addressable Market across energy, utilities, facilities management and industrial sectors</div>
+          <div class="mkt-source">GridOps Market Analysis</div>
+        </div>
+      </div>
+
+      <div class="charts-grid">
+        <div class="chart-card">
+          <div class="chart-title">UK Infrastructure Failure Cost Impact</div>
+          <div class="chart-sub">Cost contributors to unplanned downtime across UK SME infrastructure operators</div>
+          <div class="chart-wrap"><canvas id="chartSector"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title">Current Monitoring Methods  The Reliability Gap</div>
+          <div class="chart-sub">Where UK infrastructure SMEs currently fail to predict asset failures</div>
+          <div class="chart-wrap"><canvas id="chartRootCause"></canvas></div>
+        </div>
+      </div>
+
+      <div class="chart-card-full">
+        <div class="chart-title">GridOps Intelligence vs Competitors  Capability Comparison</div>
+        <div class="chart-sub">How GridOps' predictive reliability platform compares to existing industrial AI tools</div>
+        <div class="chart-wrap-lg"><canvas id="chartRadar"></canvas></div>
+      </div>
+
+      <div class="chart-card-full">
+        <div class="chart-title">UK & Global Predictive Maintenance Market Growth</div>
+        <div class="chart-sub">Market size trajectory and projected UK SME adoption rate 2022–2030</div>
+        <div class="chart-wrap-lg"><canvas id="chartGrowth"></canvas></div>
+      </div>
+
+      <div class="kpi-row">
+        <div class="kpi-card">
+          <div class="kpi-num">£85M</div>
+          <div class="kpi-lbl">Energy & Utilities TAM (8,500 sites)</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-num">£100M</div>
+          <div class="kpi-lbl">Industrial Manufacturing TAM (20,000 plants)</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-num">7.2%</div>
+          <div class="kpi-lbl">UK Industrial AI CAGR to 2028</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-num">145</div>
+          <div class="kpi-lbl">Clients needed to exceed £1M ARR</div>
+        </div>
+      </div>
+
+      <div class="chart-card-full">
+        <div class="chart-title">GridOps Intelligence Platform Performance vs Industry Average</div>
+        <div class="chart-sub">Comparing GridOps' predictive reliability capabilities against existing enterprise and SME monitoring tools</div>
+        <div class="chart-wrap-lg"><canvas id="chartPerf"></canvas></div>
+      </div>
+
+    </div>
+  </section>
+</div><!-- end page market -->
+
+
+<!-- ═══════════════════════════════════════════
+     PAGE: PROCESS (HOW IT WORKS)
+═══════════════════════════════════════════════ -->
+<div class="page" id="page-process">
+  <section class="section-green" style="padding-top:clamp(80px,12vw,120px);">
+    <div class="container">
+      <div class="label-tag">How It Works</div>
+      <h2 class="section-h2 dark">From Fragmented Telemetry to <span style="color:var(--blue)">Unified Reliability</span> in Six Phases</h2>
+      <div class="section-divider divider-green"></div>
+      <p class="para-dark" style="max-width:640px;margin-bottom:48px;">GridOps Intelligence's predictive operations lifecycle moves UK infrastructure SMEs from reactive "fix-it-when-it-breaks" maintenance to proactive, data-driven reliability management  protecting asset uptime, reducing grid costs, and ensuring permanent regulatory compliance.</p>
+
+      <!-- Phase 1 -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,72px);align-items:center;margin-bottom:clamp(56px,8vw,96px);">
+        <div>
+          <div style="font-family:var(--mono);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--blue);margin-bottom:12px;">Phase 01 · Connect</div>
+          <h3 style="font-family:var(--display);font-size:clamp(22px,2.5vw,32px);font-weight:800;color:var(--text-dark);margin-bottom:16px;line-height:1.2;">Connect & Ingest  Legacy SCADA & Industrial Sensor Data</h3>
+          <p style="color:var(--text-muted);font-size:15px;line-height:1.8;margin-bottom:18px;">GridOps Intelligence connects directly to legacy SCADA systems, industrial IoT sensors, energy meters, and operational technology via a Zero-Overhaul software bridge. No hardware replacement. No middleware overhaul. The platform structures data from Modbus and DNP3 protocols instantly.</p>
+          <p style="color:var(--text-muted);font-size:15px;line-height:1.8;margin-bottom:24px;">Apache Kafka and MQTT brokers automate the ingestion of high-frequency data from industrial sensors and legacy meters  providing sub-300ms data pipeline latency across substations, renewable energy sites, and industrial facilities.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:10px;">
+            <span class="risk-badge risk-green"><span class="risk-dot"></span>SCADA Bridge Setup</span>
+            <span class="risk-badge risk-green"><span class="risk-dot"></span>Protocol-Agnostic APIs</span>
+            <span class="risk-badge risk-blue"><span class="risk-dot"></span>Real-Time Telemetry</span>
+          </div>
+        </div>
+        <div>
+          <div class="process-phase-img">
+            <img src="grid10.jpg" alt="Phase 01 – Connect">
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 2 -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,72px);align-items:center;margin-bottom:clamp(56px,8vw,96px);">
+        <div>
+          <div style="width:100%;aspect-ratio:16/10;border-radius:16px;border:1px solid rgba(15,76,129,0.2);overflow:hidden;box-shadow:0 8px 32px rgba(14,165,233,0.08);">
+            <img src="grid11.jpg" alt="Phase 02 – Vectorize" style="width:100%;height:100%;object-fit:cover;">
+          </div>
+        </div>
+        <div>
+          <div style="font-family:var(--mono);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold-light);margin-bottom:12px;">Phase 02 · Vectorize</div>
+          <h3 style="font-family:var(--display);font-size:clamp(22px,2.5vw,32px);font-weight:800;color:var(--text-dark);margin-bottom:16px;line-height:1.2;">Build Each Asset's Unique Criticality Vector</h3>
+          <p style="color:var(--text-muted);font-size:15px;line-height:1.8;margin-bottom:18px;">The Multiaxial Asset Criticality Vectorization engine evaluates each asset based on its systemic impact  calculating a "Criticality Score" that considers load variations, environmental stress, and grid position. Unlike generic threshold alerts, this is context-aware intelligence.</p>
+          <p style="color:var(--text-muted);font-size:15px;line-height:1.8;margin-bottom:24px;">This Criticality Score is stored as the asset's permanent operational intelligence  ensuring that failure patterns are recognized even through staff turnover or seasonal infrastructure changes, eliminating institutional "knowledge loss."</p>
+          <div style="display:flex;flex-wrap:wrap;gap:10px;">
+            <span class="risk-badge risk-gold"><span class="risk-dot"></span>Criticality Scoring</span>
+            <span class="risk-badge risk-green"><span class="risk-dot"></span>Asset Intelligence</span>
+            <span class="risk-badge risk-gold"><span class="risk-dot"></span>Systemic Impact Mapping</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 3 -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,72px);align-items:center;margin-bottom:clamp(56px,8vw,96px);">
+        <div>
+          <div style="font-family:var(--mono);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--blue);margin-bottom:12px;">Phase 03 · Detect</div>
+          <h3 style="font-family:var(--display);font-size:clamp(22px,2.5vw,32px);font-weight:800;color:var(--text-dark);margin-bottom:16px;line-height:1.2;">Behavioral Drift Detection  14 Days Before Failure</h3>
+          <p style="color:var(--text-muted);font-size:15px;line-height:1.8;margin-bottom:18px;">The Asset Behavioural Drift Detection Matrix identifies "micro-variances"  tiny anomalies in thermal, vibration, and electrical data  that precede major failures. The system distinguishes genuine failure precursors from operational noise with 94% accuracy.</p>
+          <p style="color:var(--text-muted);font-size:15px;line-height:1.8;margin-bottom:24px;">When a transformer begins subtle thermal drift or a wind turbine bearing shows irregular vibration patterns, GridOps detects the composite failure signature weeks before a catastrophic failure occurs  providing a vital planned intervention window.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:10px;">
+            <span class="risk-badge risk-green"><span class="risk-dot"></span>14-Day Early Warning</span>
+            <span class="risk-badge risk-green"><span class="risk-dot"></span>Sub-500ms Alerts</span>
+            <span class="risk-badge risk-blue"><span class="risk-dot"></span>Drift Pattern Analysis</span>
+          </div>
+        </div>
+        <div>
+          <div class="process-phase-img">
+            <img src="grid12.jpg" alt="Phase 03 – Detect">
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 4 -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,72px);align-items:center;margin-bottom:clamp(56px,8vw,96px);">
+        <div>
+          <div style="width:100%;aspect-ratio:16/10;border-radius:16px;border:1px solid rgba(15,76,129,0.2);overflow:hidden;box-shadow:0 8px 32px rgba(14,165,233,0.08);">
+            <img src="grid13.jpg" alt="Phase 04 – Edge AI" style="width:100%;height:100%;object-fit:cover;">
+          </div>
+        </div>
+        <div>
+          <div style="font-family:var(--mono);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold-light);margin-bottom:12px;">Phase 04 · Edge Process</div>
+          <h3 style="font-family:var(--display);font-size:clamp(22px,2.5vw,32px);font-weight:800;color:var(--text-dark);margin-bottom:16px;line-height:1.2;">Edge-AI Inference  24/7 Even Without Connectivity</h3>
+          <p style="color:var(--text-muted);font-size:15px;line-height:1.8;margin-bottom:18px;">The Edge-First architecture processes critical telemetry locally on NVIDIA Jetson Orin modules  ensuring uninterrupted 24/7 monitoring for remote wind farms, rural substations, and industrial sites with limited or no network connectivity.</p>
+          <p style="color:var(--text-muted);font-size:15px;line-height:1.8;margin-bottom:24px;">Unlike cloud-dependent competitors, GridOps sustains 95% of its predictive functionality during complete network dropouts. Localized processing also minimizes data attack surfaces  providing built-in OT cybersecurity for infrastructure assets.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:10px;">
+            <span class="risk-badge risk-gold"><span class="risk-dot"></span>Offline-First AI</span>
+            <span class="risk-badge risk-green"><span class="risk-dot"></span>95% Uptime Offline</span>
+            <span class="risk-badge risk-gold"><span class="risk-dot"></span>OT Cyber Protection</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 5 -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,72px);align-items:center;margin-bottom:clamp(56px,8vw,96px);">
+        <div>
+          <div style="font-family:var(--mono);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--blue);margin-bottom:12px;">Phase 05 · Act</div>
+          <h3 style="font-family:var(--display);font-size:clamp(22px,2.5vw,32px);font-weight:800;color:var(--text-dark);margin-bottom:16px;line-height:1.2;">Automated Maintenance Workflows & Prioritized Work Orders</h3>
+          <p style="color:var(--text-muted);font-size:15px;line-height:1.8;margin-bottom:18px;">GridOps automatically generates prioritized maintenance work orders based on failure probability and asset criticality scores. Front-line operators receive clear, actionable intelligence  no data science team required. The right engineer is dispatched to the right asset at the right time.</p>
+          <p style="color:var(--text-muted);font-size:15px;line-height:1.8;margin-bottom:24px;">Human-in-the-loop verification ensures high-risk criticality scores are reviewed by senior engineers before automated actions  maintaining governance requirements for essential UK infrastructure services.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:10px;">
+            <span class="risk-badge risk-green"><span class="risk-dot"></span>Auto Work Orders</span>
+            <span class="risk-badge risk-green"><span class="risk-dot"></span>Criticality-Ranked</span>
+            <span class="risk-badge risk-blue"><span class="risk-dot"></span>Human-in-the-Loop</span>
+          </div>
+        </div>
+        <div>
+          <div class="process-phase-img">
+            <img src="grid14.jpg" alt="Phase 05 – Act">
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 6 -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,72px);align-items:center;margin-bottom:clamp(56px,8vw,96px);">
+        <div>
+          <div style="width:100%;aspect-ratio:16/10;border-radius:16px;border:1px solid rgba(15,76,129,0.2);overflow:hidden;box-shadow:0 8px 32px rgba(14,165,233,0.08);">
+            <img src="grid15.jpg" alt="Phase 06 – Comply" style="width:100%;height:100%;object-fit:cover;">
+          </div>
+        </div>
+        <div>
+          <div style="font-family:var(--mono);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold-light);margin-bottom:12px;">Phase 06 · Comply</div>
+          <h3 style="font-family:var(--display);font-size:clamp(22px,2.5vw,32px);font-weight:800;color:var(--text-dark);margin-bottom:16px;line-height:1.2;">Automated NIS 2018 & Ofgem Compliance Reporting</h3>
+          <p style="color:var(--text-muted);font-size:15px;line-height:1.8;margin-bottom:18px;">GridOps closes the loop  automatically generating immutable audit trails and resilience reports required by Ofgem and UK NIS 2018 regulators. Compliance becomes an operational advantage, not a manual administrative burden.</p>
+          <p style="color:var(--text-muted);font-size:15px;line-height:1.8;margin-bottom:24px;">Every maintenance action, criticality score, and efficiency gain is logged, encrypted, and stored in a GDPR-compliant digital archive  keeping SME operators "audit-ready" at all times without dedicated compliance staff.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:10px;">
+            <span class="risk-badge risk-gold"><span class="risk-dot"></span>NIS 2018 Automated</span>
+            <span class="risk-badge risk-green"><span class="risk-dot"></span>Ofgem Audit-Ready</span>
+            <span class="risk-badge risk-gold"><span class="risk-dot"></span>Immutable Audit Trail</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</div><!-- end page process -->
+
+
+<!-- ═══════════════════════════════════════════
+     PAGE: PRICING
+═══════════════════════════════════════════════ -->
+<div class="page" id="page-pricing">
+  <section class="section-white" style="padding-top:clamp(80px,12vw,120px);">
+    <div class="container">
+      <div class="label-tag">Pricing & Plans</div>
+      <h2 class="section-h2 dark">Tier-1 Reliability at <span style="color:var(--blue)">10% of Enterprise CAPEX</span></h2>
+      <div class="section-divider divider-green"></div>
+      <p class="para-dark" style="max-width:640px;">GridOps Intelligence operates on a B2B SaaS and Edge-hardware model, offering tiered subscription access designed for SME budgets. No data science team required. No expensive hardware overhaul. Just affordable, always-on AI reliability.</p>
+
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <div class="pricing-tier">SME Site</div>
+          <div class="pricing-name">Basic Tier</div>
+          <div class="pricing-price"><sup>£</sup>299<span class="period">/month</span></div>
+          <div class="pricing-sub">Per infrastructure site · Up to 50 assets</div>
+          <div class="pricing-divider"></div>
+          <div class="pricing-feature"><span class="check"><i class="fas fa-check"></i></span>Monitoring for up to 50 active assets</div>
+          <div class="pricing-feature"><span class="check"><i class="fas fa-check"></i></span>Real-time behavioral drift alerts</div>
+          <div class="pricing-feature"><span class="check"><i class="fas fa-check"></i></span>Standard NIS 2018 compliance reporting</div>
+          <div class="pricing-feature"><span class="check"><i class="fas fa-check"></i></span>Legacy SCADA bridge (Modbus/DNP3)</div>
+          <div class="pricing-feature"><span class="check"><i class="fas fa-check"></i></span>Ideal for micro-grids & pumping stations</div>
+          <div class="pricing-feature"><span class="check"><i class="fas fa-check"></i></span>Email & portal support</div>
+          <button class="btn-secondary" onclick="showPage('contact')">Get Started →</button>
+        </div>
+
+        <div class="pricing-card featured">
+          <div class="pricing-badge">Most Popular</div>
+          <div class="pricing-tier">Regional Operator</div>
+          <div class="pricing-name">Professional Tier</div>
+          <div class="pricing-price"><sup>£</sup>749<span class="period">/month</span></div>
+          <div class="pricing-sub">Per operator portfolio · Up to 250 assets</div>
+          <div class="pricing-divider"></div>
+          <div class="pricing-feature"><span class="check"><i class="fas fa-check"></i></span>Monitoring for up to 250 active assets</div>
+          <div class="pricing-feature"><span class="check"><i class="fas fa-check"></i></span>Advanced criticality vectoring & scoring</div>
+          <div class="pricing-feature"><span class="check"><i class="fas fa-check"></i></span>API access for SCADA integration</div>
+          <div class="pricing-feature"><span class="check"><i class="fas fa-check"></i></span>Sector-specific reliability modules</div>
+          <div class="pricing-feature"><span class="check"><i class="fas fa-check"></i></span>Priority technical support</div>
+          <div class="pricing-feature"><span class="check"><i class="fas fa-check"></i></span>Federated learning repository access</div>
+          <button class="btn-primary" onclick="showPage('contact')">Request Demo →</button>
+        </div>
+
+        <div class="pricing-card">
+          <div class="pricing-tier">Utility Provider</div>
+          <div class="pricing-name">Enterprise Tier</div>
+          <div class="pricing-price" style="font-size:clamp(28px,3vw,42px);"><span class="period" style="font-size:16px;">Avg. £</span>1,499<span class="period">/mo</span></div>
+          <div class="pricing-sub">Unlimited assets · Custom compliance mapping</div>
+          <div class="pricing-divider"></div>
+          <div class="pricing-feature"><span class="check"><i class="fas fa-check"></i></span>Unlimited active asset monitoring</div>
+          <div class="pricing-feature"><span class="check"><i class="fas fa-check"></i></span>Full federated learning repository access</div>
+          <div class="pricing-feature"><span class="check"><i class="fas fa-check"></i></span>Custom Ofgem compliance mapping</div>
+          <div class="pricing-feature"><span class="check"><i class="fas fa-check"></i></span>24/7 mission-critical support</div>
+          <div class="pricing-feature"><span class="check"><i class="fas fa-check"></i></span>Edge-AI hardware kit included</div>
+          <div class="pricing-feature"><span class="check"><i class="fas fa-check"></i></span>Dedicated implementation specialist</div>
+          <button class="btn-secondary" onclick="showPage('contact')">Contact Us →</button>
+        </div>
+      </div>
+
+      <!-- ADD-ONS -->
+      <div style="margin-top:48px;">
+        <div class="label-tag">Sector Add-Ons</div>
+        <h3 style="font-family:var(--display);font-size:clamp(22px,2.5vw,34px);font-weight:800;color:var(--text-dark);margin-bottom:24px;">Specialized Reliability Modules</h3>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
+          <div class="mkt-card">
+            <div style="font-size:28px;margin-bottom:10px;">⚡</div>
+            <div style="font-family:var(--display);font-size:16px;font-weight:800;color:var(--text-dark);margin-bottom:6px;">Renewable Energy Module</div>
+            <div style="font-family:var(--display);font-size:22px;font-weight:800;color:var(--blue);margin-bottom:8px;">£599<span style="font-size:13px;font-weight:400;color:var(--text-muted);font-family:var(--font);">/year</span></div>
+            <div style="font-size:13px;color:var(--text-muted);">Optimized for solar inverters and wind turbine bearing monitoring</div>
+          </div>
+          <div class="mkt-card">
+            <div style="font-size:28px;margin-bottom:10px;">🏭</div>
+            <div style="font-family:var(--display);font-size:16px;font-weight:800;color:var(--text-dark);margin-bottom:6px;">Electrical Substation Module</div>
+            <div style="font-family:var(--display);font-size:22px;font-weight:800;color:var(--blue);margin-bottom:8px;">£499<span style="font-size:13px;font-weight:400;color:var(--text-muted);font-family:var(--font);">/year</span></div>
+            <div style="font-size:13px;color:var(--text-muted);">Thermal and electrical drift signatures for transformers and switchgear</div>
+          </div>
+          <div class="mkt-card">
+            <div style="font-size:28px;margin-bottom:10px;">💧</div>
+            <div style="font-family:var(--display);font-size:16px;font-weight:800;color:var(--text-dark);margin-bottom:6px;">Water Utility Module</div>
+            <div style="font-family:var(--display);font-size:22px;font-weight:800;color:var(--blue);margin-bottom:8px;">£399<span style="font-size:13px;font-weight:400;color:var(--text-muted);font-family:var(--font);">/year</span></div>
+            <div style="font-size:13px;color:var(--text-muted);">Pump cavitation detection and pressure-drift analysis for water networks</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- EDGE HARDWARE -->
+      <div style="margin-top:32px;background:var(--bg-section);border:1px solid rgba(14,165,233,0.15);border-radius:18px;padding:32px;">
+        <div style="display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;flex-wrap:wrap;">
+          <div>
+            <div class="label-tag">Edge-AI Hardware Kit</div>
+            <h3 style="font-family:var(--display);font-size:22px;font-weight:800;color:var(--text-dark);margin-bottom:10px;">NVIDIA Jetson-Based Industrial Gateway</h3>
+            <p style="color:var(--text-muted);font-size:14px;line-height:1.75;">Pre-configured Edge-AI gateway for real-time monitoring in remote or low-connectivity sites. Includes 1-year software license, multi-protocol SCADA bridge, and ruggedized IP67-rated environmental housing.</p>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;">
+              <span class="risk-badge risk-green"><span class="risk-dot"></span>NVIDIA Jetson Orin</span>
+              <span class="risk-badge risk-green"><span class="risk-dot"></span>Modbus & DNP3 Ready</span>
+              <span class="risk-badge risk-blue"><span class="risk-dot"></span>1-Year License Included</span>
+            </div>
+          </div>
+          <div style="text-align:center;flex-shrink:0;">
+            <div style="font-family:var(--display);font-size:40px;font-weight:800;color:var(--blue);">£3,800</div>
+            <div style="font-size:12px;color:var(--text-muted);font-family:var(--mono);">Per unit + VAT</div>
+            <button class="btn-primary" style="margin-top:14px;" onclick="showPage('contact')">Enquire →</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</div><!-- end page pricing -->
+
+
+<!-- ═══════════════════════════════════════════
+     PAGE: FAQ
+═══════════════════════════════════════════════ -->
+<div class="page" id="page-faq">
+  <section class="section-white" style="padding-top:clamp(80px,12vw,120px);">
+    <div class="container">
+      <div style="display:grid;grid-template-columns:1fr 1.3fr;gap:clamp(36px,6vw,80px);align-items:start;">
+        <div>
+          <div class="label-tag">FAQ</div>
+          <h2 class="section-h2 dark">Frequently<br>Asked<br>Questions</h2>
+          <div class="section-divider divider-green"></div>
+          <p class="para-dark" style="margin-bottom:28px;">Everything UK infrastructure operators need to know about GridOps Intelligence's predictive reliability platform, deployment process, and compliance credentials.</p>
+          <div style="background:var(--bg-section);border:1px solid rgba(14,165,233,0.15);border-radius:14px;padding:22px;">
+            <div class="label-tag">Pilot Programme</div>
+            <h4 style="font-family:var(--display);font-size:18px;font-weight:700;color:var(--text-dark);margin-bottom:10px;">Join Our Phase 1 Launch Cohort</h4>
+            <p style="color:var(--text-muted);font-size:14px;line-height:1.75;margin-bottom:16px;">GridOps Intelligence is actively recruiting regional energy contractors, local council infrastructure teams, and renewable energy operators for a 12-week proof-of-value pilot. Strategic framework agreements are already in discussion with localized utility contractors.</p>
+            <div style="display:flex;flex-wrap:wrap;gap:8px;">
+              <span class="risk-badge risk-green"><span class="risk-dot"></span>12-Week Paid Pilot</span>
+              <span class="risk-badge risk-green"><span class="risk-dot"></span>UK Energy & Water Sectors</span>
+              <span class="risk-badge risk-blue"><span class="risk-dot"></span>Free Reliability Audit</span>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="faq-item">
+            <div class="faq-q" onclick="toggleFAQ(this)">
+              <h4>What types of UK infrastructure does GridOps Intelligence support?</h4>
+              <div class="faq-icon">+</div>
+            </div>
+            <div class="faq-body">GridOps Intelligence supports SME Independent Power Producers (IPPs), localized grid substations, renewable energy sites (solar and wind), water distribution networks, district heating networks, industrial manufacturing facilities, and facilities management estates. The platform's modular architecture allows rapid cross-sector deployment without retraining the core drift detection logic.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q" onclick="toggleFAQ(this)">
+              <h4>Do we need to replace our existing SCADA hardware?</h4>
+              <div class="faq-icon">+</div>
+            </div>
+            <div class="faq-body">No. GridOps Intelligence's proprietary "Zero-Overhaul" SCADA Bridge is specifically designed to extract and structure data from aging Modbus and DNP3 industrial protocols without requiring expensive hardware replacements. UK SMEs can unlock Tier-1 predictive intelligence from their existing infrastructure within weeks  at 10% of the CAPEX of traditional enterprise upgrades.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q" onclick="toggleFAQ(this)">
+              <h4>How does the Federated Learning Repository protect our data?</h4>
+              <div class="faq-icon">+</div>
+            </div>
+            <div class="faq-body">GridOps encodes failure precursors into anonymized signatures using a federated learning architecture  meaning raw, commercially sensitive operational data never leaves your infrastructure. The system allows SMEs to benefit from industry-wide failure patterns without sharing sensitive asset data. All data is processed under UK GDPR, stored in Microsoft Azure UK South data centres, and aligned with ISO/IEC 27001 and OT security standards.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q" onclick="toggleFAQ(this)">
+              <h4>Does GridOps work in remote sites without internet connectivity?</h4>
+              <div class="faq-icon">+</div>
+            </div>
+            <div class="faq-body">Yes. GridOps is built with an "Offline-First" Edge-AI architecture. Critical telemetry is processed locally on NVIDIA Jetson Orin modules, ensuring 24/7 monitoring even in remote wind farms and rural substations with limited or no connectivity. The system sustains 95% of its predictive functionality during complete network dropouts, and synchronizes data once reconnected.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q" onclick="toggleFAQ(this)">
+              <h4>How long does implementation take?</h4>
+              <div class="faq-icon">+</div>
+            </div>
+            <div class="faq-body">Full GridOps predictive operations deployment is typically operational within 4–6 weeks. Weeks 1–2 cover SCADA bridge connection and legacy protocol integration. Weeks 2–3 involve asset criticality baseline establishment and drift detection calibration. Weeks 3–5 see live failure precursor detection and alert validation. Week 6 onwards activates full NIS 2018 compliance reporting and federated learning contribution.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q" onclick="toggleFAQ(this)">
+              <h4>Why can competitors not easily replicate GridOps Intelligence?</h4>
+              <div class="faq-icon">+</div>
+            </div>
+            <div class="faq-body">GridOps' competitive moat is built on five defensible pillars: (1) the proprietary Zero-Overhaul SCADA bridge requiring deep legacy protocol domain expertise; (2) the federated failure precursor repository that grows stronger with every deployment; (3) native UK NIS 2018 and Ofgem compliance alignment that global giants ignore; (4) the hardware-software synergy of lightweight Edge-AI that makes enterprise rip-and-replace obsolete; and (5) UK-specific asset training datasets unavailable to generic IIoT platforms.</div>
+          </div>
+
+          <div style="background:var(--bg-section);border:1px solid rgba(14,165,233,0.15);border-radius:16px;padding:28px;margin-top:8px;">
+            <div class="label-tag">Still Have Questions?</div>
+            <h3 style="font-family:var(--display);font-size:22px;font-weight:800;color:var(--text-dark);margin-bottom:12px;">Talk to Muhammad Shujaat Shabbir Directly</h3>
+            <p style="color:var(--text-muted);font-size:14px;line-height:1.75;margin-bottom:20px;">The GridOps Intelligence team is available for pilot discussions, technical briefings, and live demonstrations of the predictive operations platform for UK infrastructure SMEs and utility service providers.</p>
+            <button class="btn-primary" onclick="showPage('contact')">Book a Consultation →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div><!-- end page faq -->
+
+
+<!-- ═══════════════════════════════════════════
+     PAGE: CONTACT
+═══════════════════════════════════════════════ -->
+<div class="page" id="page-contact">
+
+  <section class="section-white" style="padding-top:clamp(80px,12vw,120px);">
+    <div class="container">
+
+      <!-- SECTION TAG -->
+      <div class="label-tag">Contact & Pilot Programme</div>
+
+      <!-- HEADING -->
+      <h2 class="section-h2 dark">
+        Request a Pilot Programme or
+        <span style="color:var(--blue)">Infrastructure Demonstration</span>
+      </h2>
+
+      <div class="section-divider divider-green"></div>
+
+      <!-- GRID -->
+      <div class="contact-grid">
+
+        <!-- LEFT -->
+        <div>
+
+          <p class="contact-left-para">
+            GridOps Intelligence is actively onboarding UK energy operators, renewable infrastructure providers, industrial facilities, and utility contractors seeking predictive operational oversight. Connect directly with our team to discuss pilot deployments, infrastructure reliability audits, and Edge-AI monitoring integrations.
+          </p>
+
+          <!-- CONTACT ITEM -->
+          <div class="contact-item">
+            <div class="violet-icon">
+              <i class="fas fa-envelope"></i>
+            </div>
+
+            <div class="contact-item-text">
+              <strong>Email</strong>
+              <span>gridopsuk@outlook.com</span>
+            </div>
+          </div>
+
+         
+
+          <!-- CONTACT ITEM -->
+          <div class="contact-item">
+            
+          </div>
+
+          <!-- CONTACT ITEM -->
+          <div class="contact-item">
+            <div class="violet-icon">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+
+            <div class="contact-item-text">
+              <strong>Location</strong>
+              <span>United Kingdom · Energy, Water & Industrial Infrastructure Sectors</span>
+            </div>
+          </div>
+
+          <!-- PILOT CARD -->
+          <div style="
+            margin-top:28px;
+            background:var(--bg-section);
+            border:1px solid rgba(14,165,233,0.14);
+            border-radius:18px;
+            padding:26px;
+          ">
+
+            <div class="label-tag">Pilot Programme</div>
+
+            <h4 style="
+              font-family:var(--display);
+              font-size:20px;
+              font-weight:700;
+              color:var(--text-dark);
+              margin-bottom:12px;
+            ">
+              Join The Phase-1 UK Reliability Cohort
+            </h4>
+
+            <p style="
+              color:var(--text-muted);
+              font-size:14px;
+              line-height:1.8;
+              margin-bottom:18px;
+            ">
+              GridOps Intelligence is recruiting 10–15 UK utility operators, renewable energy facilities, and industrial infrastructure providers for a 12-week predictive operations pilot focused on drift detection, outage prevention, and infrastructure resilience validation.
+            </p>
+
+            <div style="
+              display:flex;
+              flex-wrap:wrap;
+              gap:10px;
+            ">
+              <span class="risk-badge risk-green">
+                <span class="risk-dot"></span>
+                12-Week Pilot
+              </span>
+
+              <span class="risk-badge risk-green">
+                <span class="risk-dot"></span>
+                Edge-AI Reliability Monitoring
+              </span>
+
+              <span class="risk-badge risk-blue">
+                <span class="risk-dot"></span>
+                Free Infrastructure Audit
+              </span>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- RIGHT -->
+        <div>
+
+          <div class="contact-form-card">
+
+            <h3>Request a Demonstration</h3>
+
+            <form 
+              action="https://api.web3forms.com/submit" 
+              method="POST"
+              class="contact-form"
+            >
+
+              <!-- ACCESS KEY -->
+              <input 
+                type="hidden" 
+                name="access_key" 
+                value="ba3f374d-ac3f-4b1c-b94e-8fe929f4d800"
+              >
+
+              <!-- OPTIONAL -->
+              <input 
+                type="hidden" 
+                name="subject" 
+                value="New GridOps Intelligence Enquiry"
+              >
+
+              <input 
+                type="hidden" 
+                name="from_name" 
+                value="GridOps Intelligence Website"
+              >
+
+              <!-- ANTI SPAM -->
+              <input 
+                type="checkbox" 
+                name="botcheck" 
+                class="hidden"
+                style="display:none;"
+              >
+
+              <!-- NAME -->
+              <div class="form-group">
+                <label class="form-label">
+                  Full Name
+                </label>
+
+                <input 
+                  class="form-ctrl"
+                  type="text" 
+                  name="name" 
+                  placeholder="Your full name"
+                  required
+                >
+              </div>
+
+              <!-- COMPANY -->
+              <div class="form-group">
+                <label class="form-label">
+                  Organisation / Company
+                </label>
+
+                <input 
+                  class="form-ctrl"
+                  type="text" 
+                  name="company" 
+                  placeholder="Company or infrastructure operator"
+                  required
+                >
+              </div>
+
+              <!-- EMAIL -->
+              <div class="form-group">
+                <label class="form-label">
+                  Email Address
+                </label>
+
+                <input 
+                  class="form-ctrl"
+                  type="email" 
+                  name="email" 
+                  placeholder="your@email.com"
+                  required
+                >
+              </div>
+
+              <!-- PHONE -->
+              <div class="form-group">
+                <label class="form-label">
+                  Phone Number
+                </label>
+
+                <input 
+                  class="form-ctrl"
+                  type="tel" 
+                  name="phone" 
+                  placeholder="+44 XXXX XXXXXX"
+                >
+              </div>
+
+              <!-- SECTOR -->
+              <div class="form-group">
+                <label class="form-label">
+                  Infrastructure Sector
+                </label>
+
+                <select 
+                  class="form-ctrl"
+                  name="sector"
+                  required
+                >
+                  <option value="">
+                    Select your sector
+                  </option>
+
+                  <option>
+                    Independent Power Producer (IPP)
+                  </option>
+
+                  <option>
+                    Renewable Energy (Solar / Wind)
+                  </option>
+
+                  <option>
+                    Water Utility / Pumping Station
+                  </option>
+
+                  <option>
+                    Industrial Manufacturing
+                  </option>
+
+                  <option>
+                    Facilities Management
+                  </option>
+
+                  <option>
+                    Local Council Infrastructure
+                  </option>
+
+                  <option>
+                    Electrical Substation Operator
+                  </option>
+                </select>
+              </div>
+
+              <!-- MESSAGE -->
+              <div class="form-group">
+                <label class="form-label">
+                  Message / Enquiry
+                </label>
+
+                <textarea 
+                  class="form-ctrl ta"
+                  name="message" 
+                  placeholder="Tell us about your infrastructure assets, monitoring challenges, and operational reliability goals..."
+                  required
+                ></textarea>
+              </div>
+
+              <!-- SUBMIT -->
+              <button 
+                class="form-submit"
+                type="submit"
+              >
+                Request Infrastructure Demo →
+              </button>
+
+            </form>
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</div>
+
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top-band">
+      <div>
+        <div class="footer-brand-logo">GridOps</div>
+        <div class="footer-tagline">Intelligent Grid. Optimized Operations.</div>
+        <p class="footer-brand-desc" style="margin-top:12px;">UK's first AI-powered predictive operations platform for SME infrastructure providers. Detecting failure precursors up to 14 days in advance with sub-500ms Edge-AI processing  safeguarding energy, water, and industrial assets across the United Kingdom.</p>
+        <div class="footer-badges">
+          <span class="footer-badge">UK NIS 2018 Aligned</span>
+          <span class="footer-badge">Net Zero 2050 Ready</span>
+          <span class="footer-badge">UK GDPR Compliant</span>
+          <span class="footer-badge">ISO 27001 Ready</span>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Platform</div>
+        <div class="footer-col">
+          <a onclick="showPage('platform')">Multiaxial Asset Vectorization</a>
+          <a onclick="showPage('platform')">Behavioral Drift Detection Matrix</a>
+          <a onclick="showPage('platform')">Zero-Overhaul SCADA Bridge</a>
+          <a onclick="showPage('platform')">Edge-AI Offline Monitoring</a>
+          <a onclick="showPage('platform')">Federated Failure Repository</a>
+          <a onclick="showPage('platform')">NIS 2018 Compliance Engine</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <div class="footer-col">
+          <a onclick="showPage('about')">About GridOps Intelligence</a>
+          <a onclick="showPage('about')">Founder  Muhammad Shujaat Shabbir</a>
+          <a onclick="showPage('process')">How It Works</a>
+          <a onclick="showPage('faq')">FAQ</a>
+          <a onclick="showPage('market')">Market Analysis</a>
+          <a onclick="showPage('pricing')">Pricing & Plans</a>
+          <a onclick="showPage('contact')">Request a Demo</a>
+          <a onclick="showPage('contact')">Pilot Programme</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Solutions</div>
+        <div class="footer-col">
+          <a onclick="showPage('platform')">Independent Power Producers</a>
+          <a onclick="showPage('platform')">Renewable Energy (Solar/Wind)</a>
+          <a onclick="showPage('platform')">Water Utility Networks</a>
+          <a onclick="showPage('platform')">Industrial Manufacturing</a>
+          <a onclick="showPage('pricing')">Basic Plan  £299/month</a>
+          <a onclick="showPage('pricing')">Professional Plan  £749/month</a>
+          <a onclick="showPage('pricing')">Enterprise Plan  Custom</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom-bar">
+      <p>© 2026 <span>GridOps Intelligence</span> · United Kingdom · UK NIS Regulations 2018 Aligned · Net Zero 2050 Ready · UK GDPR Compliant · ISO 27001 Ready</p>
+      <div class="footer-bottom-links">
+        <a onclick="showPage('contact')">Privacy Policy</a>
+        <a onclick="showPage('contact')">Terms of Service</a>
+        <a onclick="showPage('contact')">Confidential Business Plan</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ═══════════ JAVASCRIPT ═══════════ -->
+<script>
+/* ─── PAGE NAV ───────────────────────────────── */
+function showPage(name){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-links button').forEach(b=>b.classList.remove('active'));
+  const pg=document.getElementById('page-'+name);
+  if(pg){pg.classList.add('active');}
+  const btn=document.getElementById('nav-'+name);
+  if(btn){btn.classList.add('active');}
+  window.scrollTo({top:0,behavior:'instant'});
+  if(name==='market'&&!window.marketChartsLoaded){initMarketCharts();window.marketChartsLoaded=true;}
+}
+
+function toggleCard(btn){
+  const card=btn.closest('.platform-card');
+  card.classList.toggle('open');
+  btn.innerHTML=card.classList.contains('open')?'Show Less':'Learn More';
+}
+
+function toggleFAQ(el){el.parentElement.classList.toggle('open');}
+
+function closeMobile(){
+  document.getElementById('mobileNav').classList.remove('open');
+  document.getElementById('hamburger').classList.remove('open');
+}
+
+document.getElementById('hamburger').addEventListener('click',function(){
+  this.classList.toggle('open');
+  document.getElementById('mobileNav').classList.toggle('open');
+});
+
+/* ─── CHART THEME  LIGHT BLUE ─────────────────────── */
+const BLUE='rgba(14,165,233,1)';
+const BLUE2='rgba(14,165,233,0.75)';
+const BLUE3='rgba(14,165,233,0.4)';
+const NAVY='rgba(15,76,129,0.9)';
+const NAVY2='rgba(29,111,164,0.7)';
+const GRIDCLR='rgba(14,165,233,0.06)';
+const MUTED='rgba(107,114,128,0.85)';
+
+Chart.defaults.font.family="'IBM Plex Mono', monospace";
+Chart.defaults.font.size=11;
+Chart.defaults.color=MUTED;
+
+/* ─── MARKET CHARTS ──────────────────────────── */
+function initMarketCharts(){
+  // Infrastructure Failure Cost Sources
+  new Chart(document.getElementById('chartSector').getContext('2d'),{
+    type:'bar',
+    data:{
+      labels:['Reactive Maintenance (No Prediction)','SCADA Legacy Integration Gaps','Unplanned Outage Penalties','Manual Monitoring Errors','No Micro-Failure Detection','Regulatory Non-Compliance'],
+      datasets:[{
+        label:'% Impact on SME Operational Cost',
+        data:[58,47,42,36,30,24],
+        backgroundColor:[BLUE,BLUE2,BLUE3,'rgba(14,165,233,0.25)',NAVY2,'rgba(15,76,129,0.4)'],
+        borderRadius:5,barPercentage:0.6
+      }]
+    },
+    options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{grid:{color:GRIDCLR},ticks:{color:MUTED,callback:v=>v+'%'}},y:{grid:{display:false},ticks:{color:MUTED,font:{size:10}}}}}
+  });
+
+  // Monitoring Gap
+  new Chart(document.getElementById('chartRootCause').getContext('2d'),{
+    type:'doughnut',
+    data:{
+      labels:['Manual/Reactive Monitoring (65%)','Basic Threshold Alarms (22%)','Dedicated AI Predictive System (2%)','Other/Partial Solutions (11%)'],
+      datasets:[{
+        data:[65,22,2,11],
+        backgroundColor:[BLUE,'rgba(14,165,233,0.6)',NAVY2,'rgba(15,76,129,0.5)'],
+        borderColor:['rgba(14,165,233,0.9)','rgba(14,165,233,0.7)','rgba(29,111,164,0.7)','rgba(15,76,129,0.55)'],
+        borderWidth:1.5
+      }]
+    },
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{color:MUTED,boxWidth:10,padding:10,font:{size:10}}}}}
+  });
+
+  // Radar Competitive
+  new Chart(document.getElementById('chartRadar').getContext('2d'),{
+    type:'radar',
+    data:{
+      labels:['Zero-Overhaul SCADA Bridge','Behavioral Drift Detection','Federated Privacy Learning','Edge-AI Offline Processing','NIS 2018 Compliance Built-in','SME-Scale Affordability'],
+      datasets:[
+        {label:'GridOps Intelligence',data:[5,5,5,5,5,5],backgroundColor:'rgba(14,165,233,0.1)',borderColor:BLUE,borderWidth:2,pointBackgroundColor:BLUE},
+        {label:'Senseye / Siemens',data:[2,2,1,1,2,1],backgroundColor:'rgba(15,76,129,0.06)',borderColor:NAVY2,borderWidth:1.5,pointBackgroundColor:NAVY2},
+        {label:'Uptake (USA)',data:[1,2,1,1,1,1],backgroundColor:'rgba(59,130,246,0.05)',borderColor:'rgba(59,130,246,0.5)',borderWidth:1.5,pointBackgroundColor:'rgba(59,130,246,0.5)'},
+        {label:'C3 AI (USA)',data:[1,1,1,1,1,1],backgroundColor:'rgba(180,160,255,0.04)',borderColor:'rgba(180,160,255,0.4)',borderWidth:1.5,pointBackgroundColor:'rgba(180,160,255,0.4)'},
+      ]
+    },
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{color:MUTED,boxWidth:10,padding:14,font:{size:10}}}},scales:{r:{backgroundColor:'rgba(14,165,233,0.01)',grid:{color:GRIDCLR},pointLabels:{color:MUTED,font:{size:10}},ticks:{display:false},min:0,max:5}}}
+  });
+
+  // Market Growth
+  new Chart(document.getElementById('chartGrowth').getContext('2d'),{
+    type:'bar',
+    data:{
+      labels:['2022','2023','2024','2025','2026','2027','2028','2030'],
+      datasets:[
+        {label:'Global Predictive Maintenance (USD B)',data:[3.8,4.6,5.5,6.8,8.2,10.1,12.5,15.9],backgroundColor:'rgba(14,165,233,0.6)',borderRadius:5,barPercentage:0.55},
+        {type:'line',label:'UK SME Infra AI Adoption %',data:[null,2,5,9,15,22,33,50],borderColor:NAVY,borderWidth:2,yAxisID:'y2',tension:0.4,pointBackgroundColor:NAVY,fill:false}
+      ]
+    },
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{color:MUTED,boxWidth:10,padding:12,font:{size:10}}}},scales:{x:{grid:{color:GRIDCLR},ticks:{color:MUTED}},y:{grid:{color:GRIDCLR},ticks:{color:MUTED,callback:v=>'$'+v+'B'}},y2:{position:'right',grid:{display:false},ticks:{color:MUTED,callback:v=>v+'%'}}}}
+  });
+
+  // Performance Comparison
+  new Chart(document.getElementById('chartPerf').getContext('2d'),{
+    type:'bar',
+    data:{
+      labels:['Failure Precursor Detection','Legacy SCADA Integration','Offline Edge Capability','NIS 2018 Compliance Native','SME Cost Accessibility','Federated Privacy Learning'],
+      datasets:[
+        {label:'GridOps Intelligence',data:[94,97,95,98,99,95],backgroundColor:BLUE2,borderRadius:5,barPercentage:0.35},
+        {label:'Existing Enterprise Tool Average',data:[5,4,3,10,6,2],backgroundColor:NAVY2,borderRadius:5,barPercentage:0.35}
+      ]
+    },
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{color:MUTED,boxWidth:10,padding:14,font:{size:10}}}},scales:{x:{grid:{color:GRIDCLR},ticks:{color:MUTED,font:{size:9}}},y:{grid:{color:GRIDCLR},ticks:{color:MUTED,callback:v=>v+' pts'}}}}
+  });
+}
+</script>
+</body>
+</html>
