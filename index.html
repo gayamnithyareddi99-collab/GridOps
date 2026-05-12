@@ -571,6 +571,65 @@ footer{background:var(--bg-footer);border-top:1px solid rgba(56,189,248,0.12);}
   .kpi-row{grid-template-columns:1fr;}
   .hero-btns{flex-direction:column;}
 }
+
+/* ─── 900px MOBILE FRIENDLY (targeted sections only) ─── */
+@media(max-width:900px){
+
+  /* ── FAQ page ── */
+  #page-faq .section-white > .container > div[style*="grid-template-columns:1fr 1.3fr"]{
+    display:block !important;
+  }
+  #page-faq .section-white > .container > div > div:first-child{
+    margin-bottom:32px;
+  }
+
+  /* ── Pricing: main 3-col grid → 1 col ── */
+  .pricing-grid{
+    grid-template-columns:1fr !important;
+  }
+
+  /* ── Sector Add-Ons: 3-col → 1 col ── */
+  #page-pricing div[style*="grid-template-columns:repeat(3,1fr)"],
+  #page-pricing div[style*="grid-template-columns: repeat(3, 1fr)"]{
+    display:grid !important;
+    grid-template-columns:1fr !important;
+  }
+
+  /* ── Edge-AI Hardware Kit: side-by-side → stacked ── */
+  #page-pricing div[style*="grid-template-columns:1fr auto"]{
+    display:block !important;
+  }
+  #page-pricing div[style*="grid-template-columns:1fr auto"] > div:last-child{
+    text-align:left !important;
+    margin-top:20px;
+  }
+
+  /* ── Market page charts: 2-col → 1 col ── */
+  .charts-grid{
+    grid-template-columns:1fr !important;
+  }
+  /* Market KPI 3-col → 1 col */
+  .market-kpi{
+    grid-template-columns:1fr !important;
+  }
+  /* KPI row 4-col → 2 col */
+  .kpi-row{
+    grid-template-columns:1fr 1fr !important;
+  }
+
+  /* ── How It Works phases: 2-col grid → 1 col ── */
+  #page-process .section-green > .container > div[style*="grid-template-columns:1fr 1fr"]{
+    display:block !important;
+  }
+  #page-process .section-green > .container > div[style*="grid-template-columns:1fr 1fr"] > div{
+    margin-bottom:28px;
+  }
+  /* Prevent image from being squashed */
+  #page-process .process-phase-img,
+  #page-process div[style*="aspect-ratio:16/10"]{
+    width:100% !important;
+  }
+}
 </style>
 </head>
 <body>
